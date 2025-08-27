@@ -1,9 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel from 'embla-carousel-react';
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 
 const Carousel = () => {
 
@@ -11,28 +10,6 @@ const Carousel = () => {
         loop: false,
         align: 'center'
     })
-
-    const [selectedIndex, setSelectedIndex] = useState<number>(0);
-
-    const onInit = useCallback((emblaApi: EmblaCarouselType) => {
-        // setScrollSnaps(emblaApi.scrollSnapList())
-        setSelectedIndex(emblaApi.selectedScrollSnap())
-    }, [])
-
-    const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
-        setSelectedIndex(emblaApi.selectedScrollSnap())
-    }, [])
-
-    useEffect(() => {
-        if (!emblaApi) return
-        // onInit(emblaApi)
-        // onSelect(emblaApi)
-
-        emblaApi
-            .on('reInit', onInit)
-            .on('reInit', onSelect)
-            .on('select', onSelect)
-    }, [emblaApi, onInit, onSelect]);
 
     const handleNext = useCallback(() => {
         if (!emblaApi) return
@@ -68,6 +45,7 @@ const Carousel = () => {
                                                     // i == a.length - 1 ?
                                                     //     <div className="w-[150px] md:w-[300px]"></div>
                                                     //     :
+                                                    // eslint-disable-next-line @next/next/no-img-element
                                                     <img src={`/watches/${v}`} alt="" className="w-full h-full object-contain" />
                                                 }
                                             </div>
